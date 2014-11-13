@@ -2,9 +2,10 @@
 <?php
 require_once 'ns-customizer/init.php';
 $my_settings = array(
+  'theme_slug' => 'yamyam',
   'sections' => array(
 
-    array(
+    'yamyam_header_option' => array(
       'title'       => 'YAMYAM: Header',
       'description' => 'YamYam header',
       'slug'        => 'yamyam_header_option',
@@ -15,26 +16,26 @@ $my_settings = array(
           'id'       => 'sample_text',
           'type'     => 'text',
           'default'  => 'just demo',
-          'priority' => 100,
+          'priority' => 50,
           ),
         'sample_textarea' => array(
           'title'    => 'Sample Textarea',
           'id'       => 'sample_textarea',
           'type'     => 'textarea',
           'default'  => 'just demo textarea',
-          'priority' => 100,
+          'priority' => 40,
           ),
         'sample_upload' => array(
           'title'    => 'Sample Upload',
           'id'       => 'sample_upload',
           'type'     => 'image',
-          'priority' => 100,
+          'priority' => 30,
           ),
         'sample_image' => array(
           'title'    => 'Sample Image',
           'id'       => 'sample_image',
           'type'     => 'image',
-          'priority' => 100,
+          'priority' => 20,
           ),
         'sample_color' => array(
           'title'    => 'Sample Color',
@@ -71,7 +72,7 @@ $my_settings = array(
         ),
       ),
 
-    array(
+    'yamyam_footer_option' => array(
       'title'       => 'YAMYAM: Footer',
       'description' => 'YamYam footer',
       'slug'        => 'yamyam_footer_option',
@@ -92,5 +93,8 @@ $my_settings = array(
   );
 
 $yamyam_customizer = new NS_Customizer($my_settings);
+
+// $sample_text = $yamyam_customizer->get_option('sample_text');
+// $sample_text = $yamyam_customizer->get_option('sample_text','this is default text');
 
 ?>

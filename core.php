@@ -6,14 +6,58 @@ if ( ! class_exists('NS_Customizer')):
 
     var $base_args;
     var $options;
+    var $theme_slug;
+    var $theme_option_slug;
 
 
     function __construct($args)
     {
       $this->base_args = $args;
-      // $this->options = get_option($this->base_args['option_slug']);
+
+      if ( isset( $args['theme_slug'] ) && !empty( $args['theme_slug'] ) ) {
+        $this->theme_slug = $args['theme_slug'];
+      }
+      else{
+        $this->theme_slug = get_stylesheet();
+      }
+      $this->theme_option_slug = $this->theme_slug . '_theme_options';
 
       add_action( 'customize_register', array($this,'register_customizer') );
+
+      $this->options = $this->get_options();
+
+    }
+
+    public function get_option( $key, $default = '' ){
+
+      $value = $default;
+      if ( isset( $this->options[$key] ) ) {
+        $value = $this->options[$key];
+      }
+      return $value;
+
+    }
+
+    private function get_options(){
+
+      $output = array();
+      $option_key = 'theme_mods_'.$this->theme_slug;
+      $mod_options = get_option( $option_key );
+      if ( empty( $mod_options ) ) {
+        return $output;
+      }
+      foreach ($this->base_args['sections'] as $section_key => $section) {
+
+        foreach ( $section['fields'] as $field_key => $field ) {
+
+          $output[$field['id']] = $mod_options[$section_key][$field['id']];
+
+        }
+
+      }
+
+      return $output;
+
     }
 
     function register_customizer( $wp_customize ){
