@@ -17,6 +17,13 @@ $my_settings = array(
           'default'  => 'just demo',
           'priority' => 100,
           ),
+        'sample_textarea' => array(
+          'title'    => 'Sample Textarea',
+          'id'       => 'sample_textarea',
+          'type'     => 'textarea',
+          'default'  => 'just demo textarea',
+          'priority' => 100,
+          ),
         'sample_upload' => array(
           'title'    => 'Sample Upload',
           'id'       => 'sample_upload',

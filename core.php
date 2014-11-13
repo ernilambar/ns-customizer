@@ -78,6 +78,17 @@ if ( ! class_exists('NS_Customizer')):
             else{
 
               $class_name = 'WP_Customize_'.ucfirst($field['type']).'_Control';
+              $class_exists = false;
+              if (class_exists($class_name)) {
+                $class_exists = true;
+              }
+              if ( ! $class_exists) {
+                $class_name = 'NS_Customize_'.ucfirst($field['type']).'_Control';
+                if (class_exists($class_name)) {
+                  $class_exists = true;
+                }
+              }
+
 
               if (class_exists($class_name)) {
                 $control_args = array(
