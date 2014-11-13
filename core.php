@@ -18,6 +18,13 @@ if ( ! class_exists('NS_Customizer')):
 
     function register_customizer( $wp_customize ){
 
+      $built_in_controls = array(
+        'text',
+        'checkbox',
+        'select',
+        'radio',
+        );
+
 
       foreach ($this->base_args['sections'] as $section_key => $section) {
 
@@ -52,19 +59,49 @@ if ( ! class_exists('NS_Customizer')):
             $wp_customize->add_setting( $section['slug'].'['.$field['id'].']', $setting_args );
 
             // Add Control
-            $control_args = array(
-                  'label'    => $field['title'],
-                  'section'  => $section['slug'],
-                  'type'     => $field['type'],
-                  'priority' => 100,
-            );
-            if (isset($field['priority'])) {
-              $control_args['priority'] = $field['priority'];
+            // For Builtin Controls
+            if (in_array($field['type'], $built_in_controls)) {
+              $control_args = array(
+                    'label'    => $field['title'],
+                    'section'  => $section['slug'],
+                    'type'     => $field['type'],
+                    'priority' => 100,
+              );
+              if (isset($field['priority'])) {
+                $control_args['priority'] = $field['priority'];
+              }
+              if (isset($field['choices'])) {
+                $control_args['choices'] = $field['choices'];
+              }
+              $wp_customize->add_control($section['slug'].'['.$field['id'].']', $control_args );
+            }// end if builtin
+            else{
+
+              $class_name = 'WP_Customize_'.ucfirst($field['type']).'_Control';
+
+              if (class_exists($class_name)) {
+                $control_args = array(
+                      'label'    => $field['title'],
+                      'section'  => $section['slug'],
+                      'priority' => 100,
+                );
+                if (isset($field['priority'])) {
+                  $control_args['priority'] = $field['priority'];
+                }
+
+                $obj = new $class_name(
+                  $wp_customize,
+                  $section['slug'].'['.$field['id'].']',
+                  $control_args
+                );
+                $wp_customize->add_control($obj);
+
+              }
+              else{
+                echo $class_name . ' does not exists.';
+              }
+
             }
-            if (isset($field['choices'])) {
-              $control_args['choices'] = $field['choices'];
-            }
-            $wp_customize->add_control($section['slug'].'['.$field['id'].']', $control_args );
 
           }
 

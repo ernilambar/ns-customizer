@@ -1,3 +1,4 @@
+
 <?php
 require_once 'ns-customizer/init.php';
 $my_settings = array(
@@ -16,8 +17,27 @@ $my_settings = array(
           'default'  => 'just demo',
           'priority' => 100,
           ),
+        'sample_upload' => array(
+          'title'    => 'Sample Upload',
+          'id'       => 'sample_upload',
+          'type'     => 'image',
+          'priority' => 100,
+          ),
+        'sample_image' => array(
+          'title'    => 'Sample Image',
+          'id'       => 'sample_image',
+          'type'     => 'image',
+          'priority' => 100,
+          ),
+        'sample_color' => array(
+          'title'    => 'Sample Color',
+          'id'       => 'sample_color',
+          'type'     => 'color',
+          'default'     => '#ffff00',
+          'priority' => 100,
+          ),
         'sample_radio' => array(
-          'title'   => 'Gender',
+          'title'   => 'Sample Radio',
           'id'      => 'sample_radio',
           'type'    => 'radio',
           'default' => 'male',
@@ -37,9 +57,9 @@ $my_settings = array(
             ),
           ),
         'sample_checkbox' => array(
-          'title'   => 'Sample Checkbox',
-          'id'      => 'sample_checkbox',
-          'type'    => 'checkbox',
+          'title' => 'Sample Checkbox',
+          'id'    => 'sample_checkbox',
+          'type'  => 'checkbox',
           ),
         ),
       ),
@@ -65,3 +85,5 @@ $my_settings = array(
   );
 
 $yamyam_customizer = new NS_Customizer($my_settings);
+
+?>
